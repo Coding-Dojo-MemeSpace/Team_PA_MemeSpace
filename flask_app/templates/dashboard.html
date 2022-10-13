@@ -14,5 +14,35 @@
 
     <!------------------Logout ----------------- -->
     <a href="/logout" class="btn btn-info">Logout</a>
+
+    <!------------------ create post  -------------->
+    <form action="/submit_post" method="POST" id="txtArea" >
+        <label>Post anything here:</label>
+        <!----------------------- Validation------------------------------>
+        {% with messages = get_flashed_messages() %}    <!-- declare a variable called messages -->
+            {% if messages %}                           <!-- check if there are any messages -->
+                {% for message in messages %}           <!-- loop through the messages -->
+                    <p>{{message}}</p>                  <!-- display each message in a paragraph tag -->
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <textarea type="text" name="post"></textarea>
+        <!-- input category selector  -->
+        <input type="submit" value="Add Thought">
+    </form>
+    </div>
+    <div class="display_board">
+        <div class="one_display_info">
+            {% for one_post in all_the_posts %}
+            <div class="one_display">
+                <a href="users_posts/{{one_post.poster.id}}">{{one_post.poster.first_name}} Posted:</a>
+                <textarea class="form-control">{{one_post.post}}</textarea>
+            <!--------------Delete post------------------- -->
+            {% if session["user_id"] == one_thought.thinker.id %}
+            <form action="/delete_post/{{one_post.id}}" method="post">
+                <input type="submit" value="Delete">
+            </form>
+            {% endif %}
+        </div>
 </body>
 </html>

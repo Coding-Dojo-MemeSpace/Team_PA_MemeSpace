@@ -51,16 +51,6 @@ def login():
     return redirect("/dashboard")
 
 
-# -----------------------Read one-------------------------------
-@app.route("/dashboard")
-def dashboard():
-    # ***Login validation****
-    if "user_id" not in session:
-        return redirect("/") 
-    data = {
-        "id": session["user_id"]
-    }
-    return render_template("dashboard.html", logged_in_user = User.get_by_id(data)) 
 
 
     # ------------------Logout ----------------- --
