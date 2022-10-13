@@ -11,7 +11,7 @@ PASSWORD_REGEX =re.compile(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z\d]+$")
 
 class User:
 
-    db = "login_and_reg_assignment"
+    db = "memespace"
 
     def __init__(self, data):
         self.id = data["id"]
