@@ -4,32 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static',filename='/style.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Dashboard</title>
+    <body>
 </head>
-<body>
-    <!-- ------------------------Read one ------------------------------- -->
-    <!-- logged_in_user comes from the controller/route, .first_name comes from the class method constructor  -->
-    <h1 class="text-center">Welcome {{logged_in_user.first_name}} {{logged_in_user.last_name}} to MemeSpace</h1>
-
-    <!------------------Logout ----------------- -->
-    <a href="/logout" class="btn btn-info">Logout</a>
-
-    <!------------------ create post  -------------->
-    <form action="/submit_post" method="POST" id="txtArea" >
-        <label>Post anything here:</label>
-        <!----------------------- Validation------------------------------>
-        {% with messages = get_flashed_messages() %}    <!-- declare a variable called messages -->
-            {% if messages %}                           <!-- check if there are any messages -->
-                {% for message in messages %}           <!-- loop through the messages -->
-                    <p>{{message}}</p>                  <!-- display each message in a paragraph tag -->
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        <textarea type="text" name="post"></textarea>
-        <!-- input category selector  -->
-        <input type="submit" value="Add Post">
-    </form>
+    <div class="topOfPage">
+        <!-- ------------------------Read one ------------------------------- -->
+        <!-- logged_in_user comes from the controller/route, .first_name comes from the class method constructor  -->
+        <h1 class="text-center">Welcome {{logged_in_user.first_name}} {{logged_in_user.last_name}} to MemeSpace</h1>
+    
+        <!------------------Logout ----------------- -->
+        <a href="/logout" class="btn btn-info">Logout</a>
+    </div>
+    <div class="createPost">
+        <!------------------ create post  -------------->
+        <form action="/submit_post" method="POST" id="txtArea" >
+            <label>Post anything here:</label>
+            <!----------------------- Validation------------------------------>
+            {% with messages = get_flashed_messages() %}    <!-- declare a variable called messages -->
+                {% if messages %}                           <!-- check if there are any messages -->
+                    {% for message in messages %}           <!-- loop through the messages -->
+                        <p>{{message}}</p>                  <!-- display each message in a paragraph tag -->
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <textarea type="text" name="post"></textarea>
+            <!-- input category selector  -->
+            <input type="submit" value="Add Post">
+        </form>
     </div>
     <div class="display_board">
         <div class="one_display_info">
@@ -38,11 +41,13 @@
                 <a href="users_posts/{{one_post.poster.id}}">{{one_post.poster.first_name}} Posted:</a>
                 <textarea class="form-control">{{one_post.post}}</textarea>
             <!--------------Delete post------------------- -->
-            {% if session["user_id"] == one_thought.thinker.id %}
+            {% if session["user_id"] == one_post.poster.id %}
             <form action="/delete_post/{{one_post.id}}" method="post">
                 <input type="submit" value="Delete">
             </form>
             {% endif %}
+            </div>
         </div>
+    </div>
 </body>
 </html>

@@ -26,7 +26,7 @@ def create_user():
         "password": pw_hash
         #we do not need password Conf because we only need to store the password once
     }
-    user_id = User.create(data) 
+    user_id = User.create_user(data) 
     session["user_id"] = user_id 
     return redirect("/dashboard") 
 

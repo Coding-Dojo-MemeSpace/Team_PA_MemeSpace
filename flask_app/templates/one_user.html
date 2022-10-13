@@ -13,19 +13,21 @@
 </head>
 <body>
     <div class="welcome">
-        <!-- ------------------------Read one (step 1 of 3)------------------------------- -->
+        <!-- ------------------------Read one ------------------------------- -->
         <h1 class="text-center">Welcome {{logged_in_user.first_name}} {{logged_in_user.last_name}}</h1>
-        <!------------------Logout (step 1 of 2)----------------- -->
+        <!------------------Logout----------------- -->
         <div>
             <a href="/dashboard" class="btn btn-info">Dashboard</a>
             <a href="/logout" class="btn btn-info">Logout</a>
         </div>
     </div>
-    <h1>{{one_user.first_name}}'s posts</h1>
+    <div class="mainPostSection">
+        <h1>{{one_user.first_name}}'s posts</h1>
         <div class="content">
             {% for one_post in one_user.post %} 
                 <p class="users_posts">{{one_post.post}}</p>
             {% endfor %}
         </div>
+    </div>
 </body>
 </html>

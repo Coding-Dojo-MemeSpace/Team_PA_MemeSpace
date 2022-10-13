@@ -30,7 +30,7 @@ def create_post():
         "category" : request.form['category'],
         "user_id": session["user_id"]
     }
-    Post.create(data)
+    Post.create_post(data)
     return redirect("/dashboard")
 
 #---------------------Delete post--------------------------------------
@@ -43,7 +43,7 @@ def delete_post(id):
     data = {
         "id": id
     }
-    Post.delete(data)
+    Post.delete_post(data)
     return redirect("/dashboard")
 
 

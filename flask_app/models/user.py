@@ -26,7 +26,7 @@ class User:
 
 #-- -------------------------Registration (Create User) --------------------------
     @classmethod
-    def create(cls, data):
+    def create_user(cls, data):
         query = "INSERT INTO users (first_name, last_name, email, password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s);"
         results = connectToMySQL(cls.db).query_db(query, data)
         print(results)
@@ -51,7 +51,7 @@ class User:
     @classmethod
     def get_by_id (cls, data):
         query = "SELECT * FROM users WHERE id = %(id)s"
-        results = connectToMySQL(cls.db).query_db(query, data) #data needs to be added to the query_db because we are passing that information from the data dictionary created in the controllers file
+        results = connectToMySQL(cls.db).query_db(query, data)
         print(results)
         # we are creating an users instance
         return (cls(results[0])) #we are returning the users instance to the controller route
