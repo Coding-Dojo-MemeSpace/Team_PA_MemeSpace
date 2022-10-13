@@ -51,7 +51,20 @@ def login():
     return redirect("/dashboard")
 
 
-
+#This is the app route which will take someone from the page with all users post to the specific users post
+@app.route("/users_posts/<int:id>")
+def one_user_post(id):
+        # ***Login validation****
+    if "user_id" not in session:
+        return redirect("/") 
+    data = {
+        "id": id 
+    }
+    user_data = {
+        "id" : session["user_id"]
+    }
+    return render_template("one_user.html", logged_in_user = User.get_by_id(user_data), one_user = User.get_one_with_post(data))
+    
 
     # ------------------Logout ----------------- --
 @app.route("/logout")
