@@ -13,7 +13,8 @@
         <h1>MemeSpace </h1>
         <div class="login">
             <form action="/create_user" method="post" class="col-4 p-4 bg-dark text-light">
-                <!----------------------- Validation  (step 1 of 3)------------------------------>
+                <!----------------------- Validation------------------------------>
+                <!-- validation needs to be in the form or it will display on the side of the html page -->
                 {% with messages = get_flashed_messages(category_filter=["create_user"]) %}    <!-- declare a variable called messages -->
                 <!-- category_filter allows us to display message for specific section. -->
                     {% if messages %}                           <!-- check if there are any messages -->
@@ -22,24 +23,22 @@
                         {% endfor %}
                     {% endif %}
                 {% endwith %}
-        <!-- -------------------------Registration (Create User Step 1 of 3) --------------------------->
+        <!-- -------------------------Registration --------------------------->
                 <h1 class="text-primary">Registration</h1>
                 <div class="form-group">
-                <label>First Name:<input type="text" name="first_name" class="form-control"></label><br>
-                <label>Last Name:<input type="text" name="last_name" class="form-control"></label><br>
-                <label>Email: <input type="email" name="email" class="form-control"></label><br>
-                <label>Password: <input type="password" name="password" class="form-control"></label><br>
-                <!-- We only created password in our table, We do not need to store password twice -->
-                <!-- Will use password Conf for validation -->
-                <label>Password Conf:<input type="password" name="password_conf" class="form-control"></label><br>
+                    <label>First Name:<input type="text" name="first_name" class="form-control"></label><br>
+                    <label>Last Name:<input type="text" name="last_name" class="form-control"></label><br>
+                    <label>Email: <input type="email" name="email" class="form-control"></label><br>
+                    <label>Password: <input type="password" name="password" class="form-control"></label><br>
+                    <!-- Will use password Conf for validation -->
+                    <label>Password Conf:<input type="password" name="password_conf" class="form-control"></label><br>
                 </div>
                 <input type="submit" value="Register" class="btn btn-primary">
             </form>
             
-            <!-- ---------------------Login (Comparing Upon Login (step 1 of 3) --------------------->
+            <!-- ---------------------Login--------------------->
             <form action="/login" method="post" class="col-4 p-4 bg-dark text-light">
-                <!----------------------- Validation  (step 1 of 3)------------------------------>
-                <!-- validation needs to be in the form or it will display on the side of the html page -->
+                <!----------------------- Validation ----------------------------->
                 {% with messages = get_flashed_messages(category_filter=["login"]) %}    <!-- declare a variable called messages -->
                     {% if messages %}                           <!-- check if there are any messages -->
                         {% for message in messages %}           <!-- loop through the messages -->

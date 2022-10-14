@@ -26,7 +26,7 @@ def create_user():
         "password": pw_hash
         #we do not need password Conf because we only need to store the password once
     }
-    user_id = User.create(data) 
+    user_id = User.create_user(data) 
     session["user_id"] = user_id 
     return redirect("/dashboard") 
 
@@ -51,17 +51,20 @@ def login():
     return redirect("/dashboard")
 
 
-# -----------------------Read one-------------------------------
-@app.route("/dashboard")
-def dashboard():
-    # ***Login validation****
+#This is the app route which will take someone from the page with all users post to the specific users post
+@app.route("/users_posts/<int:id>")
+def one_user_post(id):
+        # ***Login validation****
     if "user_id" not in session:
         return redirect("/") 
     data = {
-        "id": session["user_id"]
+        "id": id 
     }
-    return render_template("dashboard.html", logged_in_user = User.get_by_id(data)) 
-
+    user_data = {
+        "id" : session["user_id"]
+    }
+    return render_template("one_user.html", logged_in_user = User.get_by_id(user_data), one_user = User.get_one_with_post(data))
+    
 
     # ------------------Logout ----------------- --
 @app.route("/logout")

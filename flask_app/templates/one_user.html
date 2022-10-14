@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static',filename='/style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>One User Post</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="welcome">
+        <!-- ------------------------Read one ------------------------------- -->
+        <h1 class="text-center">Welcome {{logged_in_user.first_name}} {{logged_in_user.last_name}}</h1>
+        <!------------------Logout----------------- -->
+        <div>
+            <a href="/dashboard" class="btn btn-info">Dashboard</a>
+            <a href="/logout" class="btn btn-info">Logout</a>
+        </div>
+    </div>
+    <div class="mainPostSection">
+        <h1>{{one_user.first_name}}'s posts</h1>
+        <table>
+            <thead>
+                <tr>
+                    <td>Post</td>
+                    <td>Category</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for one_post in one_user.post %} 
+                <tr>
+                    <td>{{one_post.post}}</td>
+                    <td>{{one_post.category}}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
