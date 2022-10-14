@@ -58,8 +58,10 @@
                         <td>{{one_post.post}}</td>
                         <td>{{one_post.category}}</td>
                         <td>
-                            <!--------------Delete post (move to one user post)------------------- -->
                             {% if session["user_id"] == one_post.poster.id %}
+                            <!-- -- ------ (update->recipes.py- Step 1 of 5) --------------------------->
+                            <a href="/edit_post/{{one_post.id}}"><button>Edit</button></a>
+                            <!--------------Delete post (move to one user post)------------------- -->
                             <form action="/delete_post/{{one_post.id}}" method="post">
                                 <input type="submit" value="Delete">
                             </form>

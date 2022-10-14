@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static',filename='/style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Edit Post</title>
+</head>
+<body>
+        <h1>Edit </h1>
+        <div class="nav_bar_buttons">
+            <a href="/dashboard" class="btn btn-info">Dashboard</a>
+            <a href="/logout" class="btn btn-info">Logout</a>
+        </div>
+        <!--  -- -- ------ update --------------------------->
+        <form action="/update_post/{{one_post.id}}" method="POST">
+            <label>Edit Post here:</label>
+            <!----------------------- Validation  (recipe.py-step 1 of 3)------------------------------>
+            {% with messages = get_flashed_messages() %}    <!-- declare a variable called messages -->
+                {% if messages %}                           <!-- check if there are any messages -->
+                    {% for message in messages %}           <!-- loop through the messages -->
+                        <p>{{message}}</p>                  <!-- display each message in a paragraph tag -->
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <textarea type="text" name="post">{{one_post.post}}</textarea><br>
+            <label>Choose a category:</label>
+            <select id="category" name="category">
+                <option value="meme">Meme</option>
+                <option value="travel">Travel</option>
+                <option value="food">Food</option>
+                <option value="random">Random</option>
+            </select>
+            <input type="submit" value="Add Post">
+        </form>
+    </div>
+</body>
+</html>

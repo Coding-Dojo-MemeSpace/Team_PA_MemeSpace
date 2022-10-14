@@ -54,8 +54,7 @@ def edit_post(id):
     }
     # call the query to get one animals from the get_one classmethod in the models folder 
     # We are using the same classmethod to get one animal as the read one route above
-    an_animal = Animal.get_one(data) 
-    return render_template("edit_animal.html", one_animal = an_animal)
+    return render_template("edit_post.html", one_post = Post.get_one_with_user(data))
 
 @app.route("/update_post/<int:id>", methods = ["POST"])
 def update_post(id):

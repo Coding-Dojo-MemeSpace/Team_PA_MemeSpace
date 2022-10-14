@@ -66,6 +66,30 @@ class Post:
             all_posts.append(one_post)
         return all_posts
 
+
+
+# ---------------------Read one -----------------------
+    @classmethod
+    def get_one_with_user(cls, data): 
+        query = "SELECT * FROM posts JOIN users ON posts.user_id = users.id WHERE posts.id = %(id)s"
+        results = connectToMySQL(cls.db).query_db(query, data) 
+        print(results)
+        post = cls(results[0])
+        user_data = {
+            # Any fields that are used in BOTH tables will have their name changed, which depends on the order you put them in the JOIN query, use a print statement in your classmethod to show this.
+            "id": results[0]['users.id'], 
+            "first_name": results[0]['first_name'],
+            "last_name": results[0]['last_name'],
+            "email": results[0]['email'],
+            "password": results[0]['password'],
+            "created_at": results[0]['users.created_at'],
+            "updated_at": results[0]['users.updated_at']
+        }
+        user_obj = user.User(user_data)
+        # Associate the Recipe class instance with the User class instance by filling in the empty chef attribute in the Recipe class (self.chef = None)
+        post.poster = user_obj
+        return post
+
 # --------------------validation -----------------------------------
     @staticmethod
     def validate_post(post): #post is the form information that we are passing in
