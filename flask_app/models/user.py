@@ -23,6 +23,8 @@ class User:
         self.created_at = data["created_at"]
         self.updated_at = data["updated_at"]
         self.post = []
+        self.users_who_like = []
+        self.ids_who_like = []
 
 #-- -------------------------Registration (Create User) --------------------------
     @classmethod
@@ -98,7 +100,7 @@ class User:
             flash("Password is too short!", "create_user")
             is_valid = False
         if not PASSWORD_REGEX.match(user['password']): 
-            flash("Invalid password format! Need 1 uppercase letter and 1 number", "create_user")
+            flash("Invalid password format! No special characters allowed. Need 1 uppercase letter and 1 number", "create_user")
             is_valid = False
         #if the value of password does not equal to the password conf
         if user["password"] != user["password_conf"]: 

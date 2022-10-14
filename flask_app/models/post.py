@@ -14,6 +14,7 @@ class Post:
         self.updated_at = data["updated_at"]
         # self.user_id = data["user_id"]
         self.poster = None
+        self.posts_liked = []
 
 # -- ------------------------- Create --------------------------->
     @classmethod
@@ -66,7 +67,54 @@ class Post:
             all_posts.append(one_post)
         return all_posts
 
+#----------------------many-to-many relationship----------------------
+    @classmethod
+    def get_all_info(cls):
+        query = '''
+        SELCT * FROM posts JOIN users AS posters ON posts.user_id = posters.id
+        LEFT JOIN likes ON posts.id = likes.post_id
+        LEFT JOIN users AS likers on likers.id = likes.user_id;
+        '''
+        results = connectToMySQL(cls.db).query_db(query)
+        print(results)
+        all_posts = []
 
+        for row in results:
+            if len(all_posts) == 0 or all_posts[len(all_posts) -1].id != row['id']:
+                one_post = cls(row)
+                user_data = {
+                    "id": row['posters.id'], 
+                    "first_name": row['first_name'],
+                    "last_name": row['last_name'],
+                    "email": row['email'],
+                    "password": row['password'],
+                    "created_at": row['posters.created_at'],
+                    "updated_at": row['posters.updated_at']
+                }
+                user_obj = user.User(user_data)
+                one_post.poster = user_obj
+                liker_data = {
+                    "id": row['likers.posters.id'], 
+                    "first_name": row['likers.first_name'],
+                    "last_name": row['likers.last_name'],
+                    "email": row['likers.email'],
+                    "password": row['likers.password'],
+                    "created_at": row['likers.created_at'],
+                    "updated_at": row['likers.updated_at']
+                }
+                liker_obj = user.User(liker_data)
+                one_post.users_who_like.append(liker_obj) ##Need to figure out where the varabile  users_who_like came from. 53.23
+        return all_posts
+
+        
+
+#-----------------------Like Post----------------------------
+    @classmethod
+    def like(cls, data):
+        query = "INSERT into likes (user_id, post_id) VALUES (%(user_id)s, %(post_id)s);"
+        results = connectToMySQL(cls.db).query_db(query, data) 
+        print(results)
+        return results
 
 # ---------------------Read one -----------------------
     @classmethod

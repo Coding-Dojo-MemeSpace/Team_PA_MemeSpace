@@ -69,6 +69,9 @@
                                 <input type="submit" value="Delete">
                             </form>
                             {% endif %}
+                            <form action="/like/{{one_post.id}}" method="post">
+                                <input type="submit" value = "like">
+                            </form>
                         </td>
                     </tr>
                 </tbody>

@@ -33,6 +33,16 @@ def create_post():
     Post.create_post(data)
     return redirect("/dashboard",)
 
+#----------------------------Like post--------------------------------
+@app.route('/like/<int:id>', methods = ['POST'])
+def like(id):
+    data = {
+        'user_id' : session['user_id'],
+        'post_id' : id
+    }
+    Post.like(data)
+    return redirect('dashbaord')
+
 #---------------------Delete post--------------------------------------
 @app.route("/delete_post/<int:id>", methods=["POST"])
 def delete_post(id):
