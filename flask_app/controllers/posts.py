@@ -31,7 +31,7 @@ def create_post():
         "user_id": session["user_id"]
     }
     Post.create_post(data)
-    return redirect("/dashboard")
+    return redirect("/dashboard",)
 
 #---------------------Delete post--------------------------------------
 @app.route("/delete_post/<int:id>", methods=["POST"])
@@ -46,4 +46,27 @@ def delete_post(id):
     Post.delete_post(data)
     return redirect("/dashboard")
 
+# --------------------update------------------------------------------------
+@app.route("/edit_post/<int:id>")
+def edit_post(id):
+    data = {
+        "id": id
+    }
+    # call the query to get one animals from the get_one classmethod in the models folder 
+    # We are using the same classmethod to get one animal as the read one route above
+    an_animal = Animal.get_one(data) 
+    return render_template("edit_animal.html", one_animal = an_animal)
+
+@app.route("/update_post/<int:id>", methods = ["POST"])
+def update_post(id):
+    # ----------------------- Validation ----------------------------
+    if not Post.validate_post(request.form):
+        return redirect("/edit_post/{id}")
+    data = {
+        "id": id,
+        "post": request.form["post"], 
+        "category": request.form["category"]
+    }
+    Post.update_post(data)
+    return redirect(f"/users_post/{id}")
 

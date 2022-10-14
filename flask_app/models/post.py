@@ -12,7 +12,7 @@ class Post:
         self.category = data["category"]
         self.created_at = data["created_at"]
         self.updated_at = data["updated_at"]
-        self.user_id = data["user_id"]
+        # self.user_id = data["user_id"]
         self.poster = None
 
 # -- ------------------------- Create --------------------------->
@@ -27,6 +27,14 @@ class Post:
     @classmethod
     def delete_post(cls, data): 
         query = "DELETE FROM posts WHERE id = %(id)s;"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        print(results)
+        return results
+
+# ----------------------------Update---------------------------------------------
+    @classmethod
+    def update_post(cls, data):
+        query = "UPDATE posts SET post = %(post)s, category = %(category)s WHERE id = %(id)s;"
         results = connectToMySQL(cls.db).query_db(query, data)
         print(results)
         return results

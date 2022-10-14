@@ -23,11 +23,22 @@
     </div>
     <div class="mainPostSection">
         <h1>{{one_user.first_name}}'s posts</h1>
-        <div class="content">
-            {% for one_post in one_user.post %} 
-                <p class="users_posts">{{one_post.post}}</p>
+        <table>
+            <thead>
+                <tr>
+                    <td>Post</td>
+                    <td>Category</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for one_post in one_user.post %} 
+                <tr>
+                    <td>{{one_post.post}}</td>
+                    <td>{{one_post.category}}</td>
+                </tr>
+            </tbody>
             {% endfor %}
-        </div>
+        </table>
     </div>
 </body>
 </html>

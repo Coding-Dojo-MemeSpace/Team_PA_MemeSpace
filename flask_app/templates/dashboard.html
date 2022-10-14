@@ -29,23 +29,46 @@
                     {% endfor %}
                 {% endif %}
             {% endwith %}
-            <textarea type="text" name="post"></textarea>
-            <!-- input category selector  -->
+            <textarea type="text" name="post"></textarea><br>
+            <label>Choose a category:</label>
+            <select id="category" name="category">
+                <option value="meme">Meme</option>
+                <option value="travel">Travel</option>
+                <option value="food">Food</option>
+                <option value="random">Random</option>
+            </select>
             <input type="submit" value="Add Post">
         </form>
     </div>
     <div class="display_board">
         <div class="one_display_info">
-            {% for one_post in all_the_posts %}
-            <div class="one_display">
-                <a href="users_posts/{{one_post.poster.id}}">{{one_post.poster.first_name}} Posted:</a>
-                <textarea class="form-control">{{one_post.post}}</textarea>
-            <!--------------Delete post------------------- -->
-            {% if session["user_id"] == one_post.poster.id %}
-            <form action="/delete_post/{{one_post.id}}" method="post">
-                <input type="submit" value="Delete">
-            </form>
-            {% endif %}
+            <table>
+                <thead>
+                    <tr>
+                        <td>User</td>
+                        <td>Post</td>
+                        <td>Category</td>
+                        <td>Actions</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for one_post in all_the_posts %}
+                    <tr>
+                        <td><a href="users_posts/{{one_post.poster.id}}">{{one_post.poster.first_name}} Posted:</a></td>
+                        <td>{{one_post.post}}</td>
+                        <td>{{one_post.category}}</td>
+                        <td>
+                            <!--------------Delete post (move to one user post)------------------- -->
+                            {% if session["user_id"] == one_post.poster.id %}
+                            <form action="/delete_post/{{one_post.id}}" method="post">
+                                <input type="submit" value="Delete">
+                            </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
             </div>
         </div>
     </div>
