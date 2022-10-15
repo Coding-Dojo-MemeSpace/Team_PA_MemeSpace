@@ -12,7 +12,7 @@ def dashboard():
     data = {
         "id": session["user_id"]
     }
-    return render_template("dashboard.html", logged_in_user = User.get_by_id(data), all_the_posts= Post.get_all_posts_with_user()) 
+    return render_template("dashboard.html", logged_in_user = User.get_by_id(data), all_the_posts= Post.get_all_info()) 
 
 
 # -- ------------------------- Create --------------------------->
@@ -41,7 +41,18 @@ def like(id):
         'post_id' : id
     }
     Post.like(data)
-    return redirect('dashbaord')
+    return redirect('/dashboard')
+
+#----------------------------Unlike post--------------------------------
+@app.route('/unlike/<int:id>', methods = ['POST'])
+def unlike(id):
+    data = {
+        'user_id' : session['user_id'],
+        'post_id' : id
+    }
+    Post.unlike(data)
+    return redirect('/dashboard')
+
 
 #---------------------Delete post--------------------------------------
 @app.route("/delete_post/<int:id>", methods=["POST"])

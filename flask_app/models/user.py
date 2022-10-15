@@ -23,8 +23,7 @@ class User:
         self.created_at = data["created_at"]
         self.updated_at = data["updated_at"]
         self.post = []
-        self.users_who_like = []
-        self.ids_who_like = []
+        self.posts_liked = []
 
 #-- -------------------------Registration (Create User) --------------------------
     @classmethod

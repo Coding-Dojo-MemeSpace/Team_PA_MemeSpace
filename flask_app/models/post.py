@@ -14,7 +14,8 @@ class Post:
         self.updated_at = data["updated_at"]
         # self.user_id = data["user_id"]
         self.poster = None
-        self.posts_liked = []
+        self.users_who_like = []
+        self.ids_who_like = []
 
 # -- ------------------------- Create --------------------------->
     @classmethod
@@ -71,9 +72,9 @@ class Post:
     @classmethod
     def get_all_info(cls):
         query = '''
-        SELCT * FROM posts JOIN users AS posters ON posts.user_id = posters.id
+        SELECT * FROM posts JOIN users AS posters ON posts.user_id = posters.id
         LEFT JOIN likes ON posts.id = likes.post_id
-        LEFT JOIN users AS likers on likers.id = likes.user_id;
+        LEFT JOIN users AS likers on likers.id = likes.user_id ORDER BY likes.post_id ASC;
         '''
         results = connectToMySQL(cls.db).query_db(query)
         print(results)
@@ -93,8 +94,23 @@ class Post:
                 }
                 user_obj = user.User(user_data)
                 one_post.poster = user_obj
+                if row['likers.id'] != None:
+                    liker_data = {
+                        "id": row['likers.id'], 
+                        "first_name": row['likers.first_name'],
+                        "last_name": row['likers.last_name'],
+                        "email": row['likers.email'],
+                        "password": row['likers.password'],
+                        "created_at": row['likers.created_at'],
+                        "updated_at": row['likers.updated_at']
+                    }
+                    liker_obj = user.User(liker_data)
+                    one_post.users_who_like.append(liker_obj) ##Need to figure out where the varabile  users_who_like came from. 53.23
+                    one_post.ids_who_like.append(liker_obj)
+                all_posts.append(one_post)
+            else:
                 liker_data = {
-                    "id": row['likers.posters.id'], 
+                    "id": row['likers.id'], 
                     "first_name": row['likers.first_name'],
                     "last_name": row['likers.last_name'],
                     "email": row['likers.email'],
@@ -103,7 +119,8 @@ class Post:
                     "updated_at": row['likers.updated_at']
                 }
                 liker_obj = user.User(liker_data)
-                one_post.users_who_like.append(liker_obj) ##Need to figure out where the varabile  users_who_like came from. 53.23
+                all_posts[len(all_posts)-1].users_who_like.append(liker_obj)
+                all_posts[len(all_posts)-1].ids_who_like.append(liker_obj.id)
         return all_posts
 
         
@@ -112,6 +129,14 @@ class Post:
     @classmethod
     def like(cls, data):
         query = "INSERT into likes (user_id, post_id) VALUES (%(user_id)s, %(post_id)s);"
+        results = connectToMySQL(cls.db).query_db(query, data) 
+        print(results)
+        return results
+
+#-----------------------unlike Post----------------------------
+    @classmethod
+    def unlike(cls, data):
+        query = "DELETE FROM likes WHERE user_id = %(user_id)s AND post_id = %(post_id)s;"
         results = connectToMySQL(cls.db).query_db(query, data) 
         print(results)
         return results
