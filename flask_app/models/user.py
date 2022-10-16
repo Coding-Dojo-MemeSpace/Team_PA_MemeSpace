@@ -9,6 +9,7 @@ PASSWORD_REGEX =re.compile(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z\d]+$")
 # At least one lower case English letter, (?=.*[a-z])
 # At least one digit, (?=.*[0-9])
 
+#comment 
 
 class User:
 
