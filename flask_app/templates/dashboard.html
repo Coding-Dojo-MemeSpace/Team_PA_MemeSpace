@@ -60,7 +60,19 @@
                         <td><a href="users_posts/{{one_post.poster.id}}">{{one_post.poster.first_name}} Posted:</a></td>
                         <td>{{one_post.post}}</td>
                         <td>{{one_post.category}}</td>
+                        <td>{{one_post.users_who_like|length}} likes</td>
                         <td>
+                            <!-- -This is button to like post. If already liked should show unlike post------>
+                            {% if logged_in_user.id not in one_post.ids_who_like %}
+                            <form action="/like/{{one_post.id}}" method="post">
+                                <input type="submit" value = "like">
+                            </form>
+                            {% else %}
+                            <!-- -This is button to unlike post, if already liked------>
+                            <form action="/unlike/{{one_post.id}}" method="post">
+                                <input type="submit" value = "unlike">
+                            </form>
+                            {% endif %}
                             {% if session["user_id"] == one_post.poster.id %}
                             <!-- -- ------ (update->recipes.py- Step 1 of 5) --------------------------->
                             <a href="/edit_post/{{one_post.id}}"><button>Edit</button></a>
