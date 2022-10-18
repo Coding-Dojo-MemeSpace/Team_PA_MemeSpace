@@ -74,10 +74,10 @@ class Post:
         query = '''
         SELECT * FROM posts JOIN users AS posters ON posts.user_id = posters.id
         LEFT JOIN likes ON posts.id = likes.post_id
-        LEFT JOIN users AS likers on likers.id = likes.user_id ORDER BY likes.post_id ASC;
+        LEFT JOIN users AS likers on likers.id = likes.user_id;
         '''
         results = connectToMySQL(cls.db).query_db(query)
-        print(results)
+        # print(results)
         all_posts = []
 
         for row in results:
@@ -105,8 +105,8 @@ class Post:
                         "updated_at": row['likers.updated_at']
                     }
                     liker_obj = user.User(liker_data)
-                    one_post.users_who_like.append(liker_obj) ##Need to figure out where the varabile  users_who_like came from. 53.23
-                    one_post.ids_who_like.append(liker_obj)
+                    one_post.users_who_like.append(liker_obj) 
+                    one_post.ids_who_like.append(liker_obj.id)
                 all_posts.append(one_post)
             else:
                 liker_data = {
@@ -121,6 +121,10 @@ class Post:
                 liker_obj = user.User(liker_data)
                 all_posts[len(all_posts)-1].users_who_like.append(liker_obj)
                 all_posts[len(all_posts)-1].ids_who_like.append(liker_obj.id)
+        print('\n\tA\n')        
+        for post in all_posts:
+            print(post.users_who_like)
+            print(post.ids_who_like)
         return all_posts
 
         
