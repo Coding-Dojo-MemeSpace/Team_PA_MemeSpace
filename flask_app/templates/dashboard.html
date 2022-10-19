@@ -52,6 +52,7 @@
                         <td>Post</td>
                         <td>Category</td>
                         <td>Actions</td>
+                        <td>Number of Likes</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,7 +61,7 @@
                         <td><a href="users_posts/{{one_post.poster.id}}">{{one_post.poster.first_name}} Posted:</a></td>
                         <td>{{one_post.post}}</td>
                         <td>{{one_post.category}}</td>
-                        <td>{{one_post.users_who_like|length}} likes</td>
+                        <td>{{one_post.users_who_like|length}}</td>
                         <td>
                             <!-- -This is button to like post. If already liked should show unlike post------>
                             {% if logged_in_user.id not in one_post.ids_who_like %}
