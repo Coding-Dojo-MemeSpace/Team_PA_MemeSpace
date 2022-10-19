@@ -1,0 +1,30 @@
+.navbar-style {
+    background: linear-gradient(120deg, cyan, darkblue) !important;
+}
+
+.button-style {
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+
+.button-style-login {
+    margin-top: 20px;
+}
+
+.container-space {
+    margin-top: 20px;
+}
+
+.likes-space {
+    margin-left: 10px;
+}
+
+.center-form-text {
+    text-align: center;
+    align-items: center;
+}
+
+.center-form-input {
+    display: block;
+    margin: 0px auto;
+}
