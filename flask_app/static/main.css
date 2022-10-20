@@ -2,6 +2,10 @@
     background: linear-gradient(120deg, cyan, darkblue) !important;
 }
 
+.loginreg-style {
+    color: linear-gradient(120deg, cyan, darkblue) !important;
+}
+
 .button-style {
     margin-left: 10px;
     margin-bottom: 5px;
