@@ -44,15 +44,15 @@
         </form>
     </div>
     <div class="display_board">
-        <div class="one_display_info">
-            <table>
+        <div class="one_display_info" >
+            <table class="table">
                 <thead>
                     <tr>
-                        <td>User</td>
-                        <td>Post</td>
-                        <td>Category</td>
-                        <td>Actions</td>
-                        <td>Number of Likes</td>
+                        <th scope="col">User</th>
+                        <th scope="col">Post</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Number of Likes</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,7 +62,7 @@
                         <td>{{one_post.post}}</td>
                         <td>{{one_post.category}}</td>
                         <td>{{one_post.users_who_like|length}}</td>
-                        <td>
+                        <td class="actionButtons">
                             <!-- -This is button to like post. If already liked should show unlike post------>
                             {% if logged_in_user.id not in one_post.ids_who_like %}
                             <form action="/like/{{one_post.id}}" method="post">
