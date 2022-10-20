@@ -5,3 +5,27 @@
 .login{
     display: flex;
 }
+
+.topOfPage {
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: 150px;
+}
+
+#meme {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+textarea {
+    margin-top: 50px;
+    width: 500px;
+}
+
+.actionButtons {
+    display: flex;
+}
+
+.display_board {
+    margin-top: 50px;
+}

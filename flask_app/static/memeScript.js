@@ -17,7 +17,7 @@ function getMemeData(){
             // data = array of ojbects,["url"]= key for key value pair
             img.setAttribute("src", data['url'])
         //     // We can set the height of the picture
-            img.setAttribute("height", 250)
+            img.setAttribute("height", 350)
         //     //getElementById calls the ID name in the html.add image to html Id.
             document.getElementById("meme").append(img)
     })

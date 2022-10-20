@@ -1,0 +1,97 @@
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px black solid;
+    border-radius: 5px;
+}
+
+#dash, #log {
+    margin-right: 10px;
+    color: black;
+}
+h3 {
+    font-size: 22px;
+    margin-left: 10px;
+    color: #6192AF;
+    letter-spacing: 1.5px;
+}
+
+h1 {
+    font-size: 52px;
+    letter-spacing: 1.5px;
+    font-weight: bolder;
+}
+
+a {
+    text-decoration: none;
+    font-size: 17px;
+    letter-spacing: 1.5px;
+}
+
+form, h1 {
+    margin-left: 60px;
+}
+
+form {
+    margin-left: 75px;
+    /* background-color: lightgray; */
+    height: 550px;
+    width: 475px;
+    padding-left: 20px;
+    padding-top: 10px;
+}
+
+textarea {
+    outline: none !important;
+}
+
+textarea, select {
+    margin-top: 10px;
+    margin-bottom: 60px;
+    box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.1);
+    border: 0.5px black solid;
+    border-radius: 10px;
+}
+
+label {
+    font-size: 30px;
+    letter-spacing: 1px;
+}
+
+select {
+    height: 30px;
+    width: 100px;
+    font-size: 15px;
+}
+
+input {
+    margin-right: 20px;
+    margin-top: 10px;
+    height: 40px;
+    width: 150px;
+    background-color:#6192AF;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    border: 0.1px black solid;
+    border-radius: 10px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+
+input:hover {
+    background-color: #6192AF;
+    box-shadow: 0px 15px 20px rgba(97, 146, 175, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+}
+
+#submitIn {
+    text-align: center;
+}
