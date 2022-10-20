@@ -88,5 +88,5 @@ def update_post(id):
         "category": request.form["category"]
     }
     Post.update_post(data)
-    return redirect(f"/users_post/{id}")
+    return redirect("/dashboard")
 
