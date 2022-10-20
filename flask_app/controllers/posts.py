@@ -12,6 +12,7 @@ def dashboard():
     data = {
         "id": session["user_id"]
     }
+    
     return render_template("dashboard.html", logged_in_user = User.get_by_id(data), all_the_posts= Post.get_all_info()) 
 
 

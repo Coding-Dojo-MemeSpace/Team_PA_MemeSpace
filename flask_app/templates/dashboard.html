@@ -5,91 +5,113 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static',filename='/style.css') }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <title>Dashboard</title>
     <body>
 </head>
-    <div class="topOfPage">
+<div class="container " >
+    <div class="container" >
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Memespace</a>
+                <ul class="navbar-nav ">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/logout">logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>  
+    </div>
+<!----------------------- Validation------------------------------>
+    {% with messages = get_flashed_messages() %}    <!-- declare a variable called messages -->
+        {% if messages %}                           <!-- check if there are any messages -->
+            {% for message in messages %}           <!-- loop through the messages -->
+                <p>{{message}}</p>                  <!-- display each message in a paragraph tag -->
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="container">
         <!-- ------------------------Read one ------------------------------- -->
         <!-- logged_in_user comes from the controller/route, .first_name comes from the class method constructor  -->
-        <h1 class="text-center">Welcome {{logged_in_user.first_name}} {{logged_in_user.last_name}} to MemeSpace</h1>
-    
-        <!------------------Logout ----------------- -->
-        <a href="/logout" class="btn btn-info">Logout</a>
+        <h1 class="h2 text-center text-primary mt-3">Welcome {{logged_in_user.first_name}} {{logged_in_user.last_name}} to MemeSpace</h1>
     </div>
-    <div id="meme">
-
-    </div>
-    <div class="createPost">
         <!------------------ create post  -------------->
-        <form action="/submit_post" method="POST" id="txtArea" >
-            <label>Post anything here:</label>
-            <!----------------------- Validation------------------------------>
-            {% with messages = get_flashed_messages() %}    <!-- declare a variable called messages -->
-                {% if messages %}                           <!-- check if there are any messages -->
-                    {% for message in messages %}           <!-- loop through the messages -->
-                        <p>{{message}}</p>                  <!-- display each message in a paragraph tag -->
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-            <textarea type="text" name="post"></textarea><br>
-            <label>Choose a category:</label>
-            <select id="category" name="category">
-                <option value="random">Random</option>
-                <option value="meme">Meme</option>
-                <option value="travel">Travel</option>
-                <option value="food">Food</option>
-            </select>
-            <input type="submit" value="Add Post">
-        </form>
-    </div>
-    <div class="display_board">
-        <div class="one_display_info" >
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">User</th>
-                        <th scope="col">Post</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Number of Likes</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for one_post in all_the_posts %}
-                    <tr>
-                        <td><a href="users_posts/{{one_post.poster.id}}">{{one_post.poster.first_name}} Posted:</a></td>
-                        <td>{{one_post.post}}</td>
-                        <td>{{one_post.category}}</td>
-                        <td>{{one_post.users_who_like|length}}</td>
-                        <td class="actionButtons">
-                            <!-- -This is button to like post. If already liked should show unlike post------>
-                            {% if logged_in_user.id not in one_post.ids_who_like %}
-                            <form action="/like/{{one_post.id}}" method="post">
-                                <input type="submit" value = "like">
-                            </form>
-                            {% else %}
-                            <!-- -This is button to unlike post, if already liked------>
-                            <form action="/unlike/{{one_post.id}}" method="post">
-                                <input type="submit" value = "unlike">
-                            </form>
-                            {% endif %}
-                            {% if session["user_id"] == one_post.poster.id %}
-                            <!-- -- ------ (update->recipes.py- Step 1 of 5) --------------------------->
-                            <a href="/edit_post/{{one_post.id}}"><button>Edit</button></a>
-                            <!--------------Delete post (move to one user post)------------------- -->
-                            <form action="/delete_post/{{one_post.id}}" method="post">
-                                <input type="submit" value="Delete">
-                            </form>
-                            {% endif %}
-                        </td>
-                    </tr>
-                </tbody>
-                {% endfor %}
-            </table>
+        <div id="meme">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <form action="/submit_post" method="POST" id="txtArea" >
+                    <div class="mb-3">
+                        <label for ='post' class = 'form-label'>Post Anything Here:</label>
+                        <input type="text" class = 'form-control' id="exampleFormControlInput1" name="post"></input>
+                    </div>
+                    <div class = 'mt-3'>
+                        <label for="dojo_id">Choose a category</label>
+                            <select  class="form-select" aria-label="Default select example" select id="category"  name ='category'>
+                                <option value="random">Random</option>
+                                <option value="meme">Meme</option>
+                                <option value="travel">Travel</option>
+                                <option value="food">Food</option>
+                            </select>
+                    <input type="submit" class = 'btn btn-primary mt-4' value="Add Post"></input>
+                </form>
             </div>
         </div>
     </div>
+    <div class="container mt-3">
+        <div class="row justify-content-center">
+            <table class="table table-hover table-responsive{-sm|-md|-lg|-xl}">
+                <thead class = 'bg-light text-dark' >
+                            <tr>
+                                <th scope="col">User</td>
+                                <th scope="col">Post</td>
+                                <th scope="col">Category</td>
+                                <th scope="col">Actions</td>
+                                <th scope="col">Number of Likes</td>
+                                
+                                <th scope="col">Edit your post</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for one_post in all_the_posts %}
+                            <tr>
+                                <td><a href="users_posts/{{one_post.poster.id}}">{{one_post.poster.first_name}} Posted:</a></td>
+                                <td>{{one_post.post}}</td>
+                                <td>{{one_post.category}}</td>
+                                <td>{{one_post.users_who_like|length}}</td>
+                                <td>
+                                    <!-- -This is button to like post. If already liked should show unlike post------>
+                                    {% if logged_in_user.id not in one_post.ids_who_like %}
+                                    <form action="/like/{{one_post.id}}" method="post">
+                                        <input type="submit" value = "like" class="btn btn-primary">
+                                    </form>
+                                    {% else %}
+                                    <!-- -This is button to unlike post, if already liked------>
+                                    <form action="/unlike/{{one_post.id}}" method="post">
+                                        <input type="submit" value = "unlike"class="btn btn-primary">
+                                    </form>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class = 'btn-group'>
+                                    {% if session["user_id"] == one_post.poster.id %}
+                                    <!-- -- ------ (update->recipes.py- Step 1 of 5) --------------------------->
+                                    <a href="/edit_post/{{one_post.id}}"><button class="btn btn-light  me-1">Edit</button ></a>
+                                    <!--------------Delete post (move to one user post)------------------- -->
+                                    <form action="/delete_post/{{one_post.id}}" method="post">
+                                        <input type="submit" value="Delete" class="btn btn-danger">
+                                    </form>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='memeScript.js') }}"></script>
 </body>
 </html>
